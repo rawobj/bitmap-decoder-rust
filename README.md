@@ -2,6 +2,24 @@
 
 Bitmap decoder and command-line viewer implemented in Rust for reading Bitmap (BMP) images. It parses several BMP/DIB header variants, currently decodes uncompressed 24-bit BGR pixel data, and displays the preview.
 
+## Output
+
+**Viewing a BMP with a V5 header (124-byte DIB, 640×426).** The file is parsed and decoded by the crate, then shown in a preview window:
+
+![Viewer showing sample.bmp](docs/screenshots/viewer-v5-header.png)
+
+**Viewing a BMP with a `BITMAPINFOHEADER` (40-byte DIB, 1050×700, bottom-up rows):**
+
+![Viewer showing 24bituncompressed.bmp](docs/screenshots/viewer-info-header.png)
+
+**Linear vs SIMD decoder benchmark.** Both decoders produce the same checksum, so the SIMD path gives identical pixels. The second run uses the 6000×4000 (72 MB) sample:
+
+![Benchmark output](docs/screenshots/benchmark.png)
+
+**Error handling.** Unsupported formats, non-BMP files and missing files return a `BitmapDecoderError` instead of a crash:
+
+![Error messages for unsupported or invalid input](docs/screenshots/errors.png)
+
 ## Why?
 For learning purposes. 
 
